@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRAMS - Simple Tractor Rental & Farmer Khata App | தமிழ் & English</title>
+  <meta name="description" content="Simple, easy-to-use tractor rental and customer balance khata app for farmers and tractor owners. Works 100% offline in Tamil & English.">
+  
+  <!-- Google Fonts: Outfit (Navana Tech) + Noto Sans Tamil & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css?v=2.4">
+</head>
+<body>
+
+  <!-- Dynamic Ambient Background -->
+  <div class="bg-gradient-mesh"></div>
+  <div class="ambient-dust-container" aria-hidden="true">
+    <div class="floating-pollen" style="width: 4px; height: 4px; left: 15%; animation-duration: 16s;"></div>
+    <div class="floating-pollen" style="width: 6px; height: 6px; left: 35%; animation-duration: 22s; animation-delay: 3s;"></div>
+    <div class="floating-pollen" style="width: 3px; height: 3px; left: 65%; animation-duration: 18s; animation-delay: 5s;"></div>
+    <div class="floating-pollen" style="width: 5px; height: 5px; left: 85%; animation-duration: 20s; animation-delay: 1s;"></div>
+  </div>
+
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#" class="brand">
+        <div class="brand-icon">🚜</div>
+        <div class="brand-text">
+          <span class="brand-title">TRAMS</span>
+          <span class="brand-subtitle" data-i18n="brand_sub">TRACTOR RENT & ACCOUNTS</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features" class="nav-link" data-i18n="nav_features">Benefits</a></li>
+        <li><a href="#implements" class="nav-link" data-i18n="nav_implements">Tractor Tools</a></li>
+        <li><a href="#calculator" class="nav-link" data-i18n="nav_calc">Calculate Rent</a></li>
+        <li><a href="#offline" class="nav-link" data-i18n="nav_offline">Offline Mode</a></li>
+        <li><a href="#dashboard-preview" class="nav-link" data-i18n="nav_dashboard">Daily Bookings</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Language Switcher -->
+        <div class="lang-toggle" title="Switch Language / மொழியை மாற்றுக">
+          <button id="btn-lang-en" class="lang-btn active">EN</button>
+          <button id="btn-lang-ta" class="lang-btn">தமிழ்</button>
+        </div>
+
+        <button class="btn btn-primary open-booking-modal" data-i18n="nav_book_btn">Book Tractor</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div>
+          <span class="badge" data-i18n="badge_hero">🌾 Simple & Easy • Works Without Internet • தமிழ் & English</span>
+        </div>
+        
+        <h1 class="hero-title">
+          <span data-i18n="hero_title_1">Easy Tractor Rental &</span><br>
+          <span class="gradient-text" data-i18n="hero_title_2">Farmer Account Book</span>
+        </h1>
+
+        <p class="hero-desc" data-i18n="hero_desc">
+          Stop writing in paper notebooks. Keep track of tractor bookings, customer balance, diesel expenses, and driver wages easily on your phone. Works 100% offline in farm fields.
+        </p>
+
+        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+          <a href="#calculator" class="btn btn-primary" data-i18n="btn_start_demo">Calculate Rent Bill</a>
+          <a href="#implements" class="btn btn-outline" data-i18n="btn_view_fleet">View Tractor Tools</a>
+        </div>
+
+        <div class="hero-stats-row">
+          <div class="hero-stat-card">
+            <div class="hero-stat-num">3+ <span>🚜</span></div>
+            <div class="hero-stat-label" data-i18n="stat_fleet">Tractors & Tools</div>
+            <div style="font-size: 0.8rem; color: #64748b;" data-i18n="stat_fleet_sub">Tractors + All Implements</div>
+          </div>
+
+          <div class="hero-stat-card">
+            <div class="hero-stat-num">100% <span>📶</span></div>
+            <div class="hero-stat-label" data-i18n="stat_sync">Works Offline</div>
+            <div style="font-size: 0.8rem; color: #64748b;" data-i18n="stat_sync_sub">No internet needed in fields</div>
+          </div>
+
+          <div class="hero-stat-card">
+            <div class="hero-stat-num">₹ 0 <span>⚖️</span></div>
+            <div class="hero-stat-label" data-i18n="stat_ledger">No Disputed Accounts</div>
+            <div style="font-size: 0.8rem; color: #64748b;" data-i18n="stat_ledger_sub">Clear balance & WhatsApp slips</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <!-- Clean Hero Tractor Image Card -->
+        <div class="hero-image-wrapper">
+          <img src="assets/hero.jpg" alt="Agricultural tractor in farmland at sunrise" class="hero-img">
+        </div>
+
+        <!-- Floating Live Status Badge -->
+        <div class="hero-floating-card">
+          <div class="floating-status-item">
+            <div class="status-dot-pulse"></div>
+            <div>
+              <div style="font-size: 0.92rem; font-weight: 700;" data-i18n="status_fleet_avail">Tractor TN-38-A-1020 • Ready for Work</div>
+              <div style="font-size: 0.78rem; color: #64748b;" data-i18n="status_fleet_tool">Attached: 9 Kalapai (Cultivator)</div>
+            </div>
+          </div>
+          <span class="badge badge-emerald" style="font-size: 0.8rem;" data-i18n="status_sync_ready">All Accounts Saved Safely</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Realistic 3D-Styled Animated Farmland Horizon & Tractor Telemetry -->
+  <div class="tractor-horizon-scene" aria-label="Animated Tractor at Work">
+    <div class="farmland-hills">
+      <svg viewBox="0 0 1440 160" fill="none" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="hillGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fed7aa" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#fdba74" stop-opacity="0.15"/>
+          </linearGradient>
+          <linearGradient id="hillGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fef3c7" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#ffedd5" stop-opacity="0.95"/>
+          </linearGradient>
+          <pattern id="soilFurrows" width="40" height="20" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="12" x2="40" y2="10" stroke="rgba(234, 88, 12, 0.18)" stroke-width="1.5" stroke-dasharray="10 8"/>
+            <line x1="0" y1="18" x2="40" y2="16" stroke="rgba(194, 65, 12, 0.12)" stroke-width="1.2" stroke-dasharray="12 10"/>
+          </pattern>
+        </defs>
+        <!-- Distant Farmland Hills -->
+        <path d="M0,80 Q360,130 720,70 T1440,85 L1440,160 L0,160 Z" fill="url(#hillGrad1)"/>
+        <!-- Coconut Palm Silhouettes in distance -->
+        <g opacity="0.35" fill="#c2410c">
+          <path d="M220,95 Q222,65 224,55 M224,55 Q205,45 195,58 M224,55 Q235,42 248,50 M224,55 Q212,38 218,30 M224,55 Q238,36 242,40" stroke="#c2410c" stroke-width="1.5" fill="none"/>
+          <path d="M960,88 Q962,60 965,50 M965,50 Q945,40 938,52 M965,50 Q978,38 988,46 M965,50 Q952,34 958,26 M965,50 Q980,32 984,36" stroke="#c2410c" stroke-width="1.5" fill="none"/>
+        </g>
+        <!-- Near Loamy Soil Layer -->
+        <path d="M0,105 Q320,65 680,110 T1440,98 L1440,160 L0,160 Z" fill="url(#hillGrad2)"/>
+        <!-- Soil Furrows Texture -->
+        <rect x="0" y="105" width="1440" height="55" fill="url(#soilFurrows)"/>
+      </svg>
+    </div>
+
+    <!-- Conveyor with Realistic Moving Tractor Unit -->
+    <div class="tractor-conveyor">
+      <div class="moving-tractor-unit" id="interactive-tractor-unit" title="Tractor Active in Field • 9 Kalapai Ploughing">
+        <!-- Live Floating Telemetry Badges -->
+        <div class="tractor-badges-cluster">
+          <div class="tractor-live-badge live-work">
+            <span class="badge-dot"></span>
+            <span data-i18n="live_tractor_status">9 Kalapai • 3.5 hrs</span>
+          </div>
+          <div class="tractor-live-badge live-khata">
+            <span data-i18n="live_tractor_cash">💰 ₹3,500 Cash Saved</span>
+          </div>
+        </div>
+
+        <!-- Exhaust Smoke Puffs -->
+        <div class="exhaust-smoke">
+          <div class="smoke-puff"></div>
+          <div class="smoke-puff"></div>
+          <div class="smoke-puff"></div>
+        </div>
+
+        <!-- Wheel Dust Trail -->
+        <div class="dust-particle dp-1"></div>
+        <div class="dust-particle dp-2"></div>
+        <div class="dust-particle dp-3"></div>
+
+        <!-- Realistic 3D Detailed Agricultural Tractor SVG -->
+        <svg class="tractor-svg-body" width="280" height="96" viewBox="0 0 280 96" fill="none">
+          <defs>
+            <linearGradient id="bodyRed3D" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ea580c"/>
+              <stop offset="40%" stop-color="#c2410c"/>
+              <stop offset="100%" stop-color="#9a3412"/>
+            </linearGradient>
+            <linearGradient id="metalEngine3D" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#475569"/>
+              <stop offset="50%" stop-color="#1e293b"/>
+              <stop offset="100%" stop-color="#0f172a"/>
+            </linearGradient>
+            <linearGradient id="chromeExhaust" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#cbd5e1"/>
+              <stop offset="50%" stop-color="#f8fafc"/>
+              <stop offset="100%" stop-color="#64748b"/>
+            </linearGradient>
+            <linearGradient id="canopyTop" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#f8fafc"/>
+              <stop offset="60%" stop-color="#e2e8f0"/>
+              <stop offset="100%" stop-color="#94a3b8"/>
+            </linearGradient>
+            <radialGradient id="tireTreadGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="70%" stop-color="#1e293b"/>
+              <stop offset="92%" stop-color="#0f172a"/>
+              <stop offset="100%" stop-color="#020617"/>
+            </radialGradient>
+            <linearGradient id="headlightCone" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#fef08a" stop-opacity="0.85"/>
+              <stop offset="40%" stop-color="#fef08a" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Volumetric Headlight Glow Beam -->
+          <polygon points="236,54 278,42 280,72 236,66" fill="url(#headlightCone)"/>
+
+          <!-- 3-Point Hitch & 9-Kalapai Implement -->
+          <g id="cultivator-implement">
+            <!-- Drawbar Linkage -->
+            <path d="M78 68 L24 68" stroke="#475569" stroke-width="4" stroke-linecap="round"/>
+            <path d="M78 58 L32 68" stroke="#64748b" stroke-width="3" stroke-linecap="round"/>
+            
+            <!-- Cultivator Main Tool Bar Frame -->
+            <rect x="12" y="52" width="22" height="18" rx="3" fill="#b45309" stroke="#78350f" stroke-width="1.5"/>
+            <!-- 9 Spring Steel Tines -->
+            <path d="M14 68 Q12 82 8 86" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M19 68 Q17 82 13 86" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M24 68 Q22 82 18 86" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M29 68 Q27 82 23 86" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Cultivator Depth Control Wheel -->
+            <g transform="translate(30, 80)">
+              <g class="wheel-trailer-spin">
+                <animateTransform 
+                  attributeName="transform" 
+                  type="rotate" 
+                  from="0 0 0" 
+                  to="360 0 0" 
+                  dur="0.65s" 
+                  repeatCount="indefinite"/>
+                <circle cx="0" cy="0" r="8" fill="#1e293b" stroke="#78350f" stroke-width="1.5"/>
+                <circle cx="0" cy="0" r="3" fill="#f59e0b"/>
+              </g>
+            </g>
+          </g>
+
+          <!-- Heavy Duty Cast Iron Chassis & Engine Block -->
+          <path d="M80 64 L220 64 L220 74 L80 74 Z" fill="url(#metalEngine3D)"/>
+          <rect x="145" y="54" width="35" height="14" rx="2" fill="#334155" stroke="#1e293b"/>
+          <line x1="152" y1="56" x2="152" y2="66" stroke="#64748b" stroke-width="1.5"/>
+          <line x1="160" y1="56" x2="160" y2="66" stroke="#64748b" stroke-width="1.5"/>
+          <line x1="168" y1="56" x2="168" y2="66" stroke="#64748b" stroke-width="1.5"/>
+
+          <!-- Operator Station & ROPS Sun Canopy -->
+          <!-- Heavy Duty Rear Curved Mudguard / Tyre Fender -->
+          <path d="M72 62 C72 30 90 22 106 22 C124 22 136 32 136 62 L127 62 C127 38 118 28 106 28 C92 28 80 38 80 62 Z" fill="#c2410c" stroke="#9a3412" stroke-width="1.5"/>
+          <!-- Mud Flap Bracket -->
+          <line x1="70" y1="62" x2="78" y2="62" stroke="#0f172a" stroke-width="3.5" stroke-linecap="round"/>
+
+          <!-- Operator Boarding Footstep -->
+          <rect x="120" y="68" width="18" height="3.5" rx="1.5" fill="#334155" stroke="#1e293b" stroke-width="1"/>
+
+          <!-- Heavy Duty ROPS Canopy Pillars -->
+          <path d="M104 54 L112 10 M144 54 L138 10" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
+          <!-- Protective White Sun Canopy Top -->
+          <path d="M98 10 L152 10 C156 10 158 13 154 15 L102 15 C98 15 96 11 98 10 Z" fill="url(#canopyTop)" stroke="#64748b" stroke-width="1.2"/>
+          <!-- Operator Driver Silhouette -->
+          <circle cx="124" cy="30" r="7" fill="#0f172a"/>
+          <path d="M118 38 C118 34 130 34 130 38 L128 54 L118 54 Z" fill="#1e293b"/>
+          <!-- Steering Wheel -->
+          <line x1="134" y1="46" x2="140" y2="38" stroke="#0f172a" stroke-width="2.5" stroke-linecap="round"/>
+          <ellipse cx="140" cy="38" rx="2" ry="5" fill="#475569"/>
+
+          <!-- Sleek Red Tractor Bonnet / Engine Hood -->
+          <path d="M142 38 L220 38 C232 40 236 48 236 62 L142 62 Z" fill="url(#bodyRed3D)" stroke="#9a3412" stroke-width="1.5"/>
+          <!-- Hood Highlights & Air Vents -->
+          <path d="M148 42 L215 42" stroke="#fb923c" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="195" y1="46" x2="225" y2="46" stroke="#7c2d12" stroke-width="2"/>
+          <line x1="195" y1="50" x2="225" y2="50" stroke="#7c2d12" stroke-width="2"/>
+          <line x1="195" y1="54" x2="225" y2="54" stroke="#7c2d12" stroke-width="2"/>
+          
+          <!-- Halogen Headlight Cluster -->
+          <ellipse cx="233" cy="58" rx="3.5" ry="6" fill="#fef08a" stroke="#ca8a04" stroke-width="1"/>
+
+          <!-- Chrome Vertical Exhaust Stack & Air Cleaner -->
+          <rect x="188" y="14" width="4.5" height="26" rx="2" fill="url(#chromeExhaust)" stroke="#475569" stroke-width="0.8"/>
+          <path d="M188 14 Q188 8 194 6" stroke="#475569" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <circle cx="178" cy="24" r="4.5" fill="#1e293b" stroke="#475569"/>
+          <line x1="178" y1="28" x2="178" y2="38" stroke="#334155" stroke-width="3"/>
+
+          <!-- ============================================== -->
+          <!-- AUTHENTIC AGRICULTURAL TYRES (FRONT & REAR)   -->
+          <!-- ============================================== -->
+          <!-- Deep Lug Large Rear Tractor Tyre (Centered at 104, 62) -->
+          <g transform="translate(104, 62)" id="rear-wheel-group">
+            <g class="tractor-tire-spin-rear">
+              <animateTransform 
+                attributeName="transform" 
+                type="rotate" 
+                from="0 0 0" 
+                to="360 0 0" 
+                dur="1.25s" 
+                repeatCount="indefinite"/>
+              <!-- Outer Heavy Duty Tractor Rubber Tire Body -->
+              <circle cx="0" cy="0" r="27" fill="#0f172a" stroke="#020617" stroke-width="1.5"/>
+              <!-- Chunky Agricultural Tread Cleat Rim -->
+              <circle cx="0" cy="0" r="24.5" stroke="#1e293b" stroke-width="5" stroke-dasharray="5 3.5"/>
+              <!-- 8 Radial Deep Rubber Tread Lugs -->
+              <path d="M0 -21 L0 -27 M15 -15 L19 -19 M21 0 L27 0 M15 15 L19 19 M0 21 L0 27 M-15 15 L-19 19 M-21 0 L-27 0 M-15 -15 L-19 -19" stroke="#020617" stroke-width="3" stroke-linecap="round"/>
+              <!-- Inner Tire Sidewall -->
+              <circle cx="0" cy="0" r="20.5" fill="#1e293b" stroke="#090d16" stroke-width="1"/>
+              <!-- Heavy Duty Agricultural Steel Rim (Burnt Orange) -->
+              <circle cx="0" cy="0" r="17" fill="#ea580c" stroke="#7c2d12" stroke-width="2"/>
+              <circle cx="0" cy="0" r="13.5" fill="#c2410c"/>
+              <!-- Cast Iron Center Axle Hub -->
+              <circle cx="0" cy="0" r="8.5" fill="#334155" stroke="#0f172a" stroke-width="1.5"/>
+              <circle cx="0" cy="0" r="4" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+              <circle cx="0" cy="0" r="1.8" fill="#0f172a"/>
+              <!-- 6 Wheel Stud Lug Nuts -->
+              <circle cx="0" cy="-10.5" r="1.4" fill="#f8fafc"/>
+              <circle cx="9" cy="-5.2" r="1.4" fill="#f8fafc"/>
+              <circle cx="9" cy="5.2" r="1.4" fill="#f8fafc"/>
+              <circle cx="0" cy="10.5" r="1.4" fill="#f8fafc"/>
+              <circle cx="-9" cy="5.2" r="1.4" fill="#f8fafc"/>
+              <circle cx="-9" cy="-5.2" r="1.4" fill="#f8fafc"/>
+            </g>
+          </g>
+
+          <!-- Steer Front Tractor Tyre (Centered at 216, 72) -->
+          <g transform="translate(216, 72)" id="front-wheel-group">
+            <g class="tractor-tire-spin-front">
+              <animateTransform 
+                attributeName="transform" 
+                type="rotate" 
+                from="0 0 0" 
+                to="360 0 0" 
+                dur="0.82s" 
+                repeatCount="indefinite"/>
+              <!-- Front Guide Steering Rubber Tire -->
+              <circle cx="0" cy="0" r="17" fill="#0f172a" stroke="#020617" stroke-width="1.5"/>
+              <!-- Ribbed Steering Tread Cleats -->
+              <circle cx="0" cy="0" r="15.5" stroke="#334155" stroke-width="3" stroke-dasharray="4 2.5"/>
+              <!-- Front Radial Lugs -->
+              <path d="M0 -13 L0 -17 M11 -11 L14 -14 M13 0 L17 0 M11 11 L14 14 M0 13 L0 17 M-11 11 L-14 14 M-13 0 L-17 0 M-11 -11 L-14 -14" stroke="#020617" stroke-width="2.2" stroke-linecap="round"/>
+              <!-- Front Inner Sidewall -->
+              <circle cx="0" cy="0" r="13" fill="#1e293b" stroke="#090d16" stroke-width="1"/>
+              <!-- Steel Rim (Burnt Orange) -->
+              <circle cx="0" cy="0" r="10.5" fill="#ea580c" stroke="#7c2d12" stroke-width="1.5"/>
+              <circle cx="0" cy="0" r="8" fill="#c2410c"/>
+              <!-- Front Center Axle Hub & Studs -->
+              <circle cx="0" cy="0" r="5" fill="#334155" stroke="#0f172a"/>
+              <circle cx="0" cy="0" r="2.2" fill="#cbd5e1"/>
+              <!-- 4 Front Wheel Studs -->
+              <circle cx="0" cy="-6.5" r="1" fill="#f8fafc"/>
+              <circle cx="6.5" cy="0" r="1" fill="#f8fafc"/>
+              <circle cx="0" cy="6.5" r="1" fill="#f8fafc"/>
+              <circle cx="-6.5" cy="0" r="1" fill="#f8fafc"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Benefits Section -->
+  <section id="features" class="pillars-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge" data-i18n="sec_pillars_badge">Made for Tractor Owners & Farmers</span>
+        <h2 class="section-title" data-i18n="sec_pillars_title">Everything You Need to Run Your Tractor Business</h2>
+      </div>
+
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon">💰</div>
+          <h3 class="pillar-title" data-i18n="pillar_1_title">Charge by Hour, Acre, or KM</h3>
+          <p class="pillar-text" data-i18n="pillar_1_text">
+            Easily set rates per hour (9 Kalapai, Rotavator), per acre (Ploughing, Cutter), or per trip (Water Tanker, Trailer).
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">📶</div>
+          <h3 class="pillar-title" data-i18n="pillar_2_title">Works Even With No Internet</h3>
+          <p class="pillar-text" data-i18n="pillar_2_text">
+            No tower in the farm? No problem! Add bookings and enter cash payments offline. It saves automatically.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">🧾</div>
+          <h3 class="pillar-title" data-i18n="pillar_3_title">Clear Customer Balances</h3>
+          <p class="pillar-text" data-i18n="pillar_3_text">
+            Know exactly who paid advance, who paid cash or GPay, and who has balance to give. Send bills on WhatsApp.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">🗓️</div>
+          <h3 class="pillar-title" data-i18n="pillar_4_title">No Double-Booking Conflicts</h3>
+          <p class="pillar-text" data-i18n="pillar_4_text">
+            The app warns you immediately if the same tractor or tool is booked for two farmers at the same time.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">⛽</div>
+          <h3 class="pillar-title" data-i18n="pillar_5_title">Track Diesel & Driver Wages</h3>
+          <p class="pillar-text" data-i18n="pillar_5_text">
+            Note down daily diesel cost and driver batta. See your real profit at the end of the day.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">🌐</div>
+          <h3 class="pillar-title" data-i18n="pillar_6_title">Simple Tamil & English</h3>
+          <p class="pillar-text" data-i18n="pillar_6_text">
+            Very simple words that anyone can read and use. Switch between தமிழ் and English with one touch.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tractor Tools Catalogue -->
+  <section id="implements" class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge" data-i18n="sec_fleet_badge">Tractor Tools & Rates</span>
+        <h2 class="section-title" data-i18n="sec_fleet_title">Choose Your Agricultural Tool</h2>
+      </div>
+
+      <!-- Categories -->
+      <div class="category-tabs">
+        <button class="cat-tab active" data-cat="all" data-i18n="cat_all">All Tools</button>
+        <button class="cat-tab" data-cat="cultivation" data-i18n="cat_cultivation">Ploughing (உழவு)</button>
+        <button class="cat-tab" data-cat="harvest" data-i18n="cat_harvest">Cutting & Seeding</button>
+        <button class="cat-tab" data-cat="transport" data-i18n="cat_transport">Trailer & Water</button>
+      </div>
+
+      <div id="services-grid-container" class="services-grid"></div>
+    </div>
+  </section>
+
+  <!-- Simplified Rent Calculator & Customer Khata Bill Maker -->
+  <section id="calculator" class="calc-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge" data-i18n="sec_calc_badge">Customer Billing & Ledger</span>
+        <h2 class="section-title" data-i18n="sec_calc_title">Farmer Bill & Payment Ledger</h2>
+      </div>
+
+      <div class="calc-box">
+        <!-- Input Form -->
+        <div class="calc-form">
+          <!-- Step 1: Customer Selection -->
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label class="form-label" data-i18n="calc_select_customer">1. Select Farmer / Customer</label>
+              <button type="button" class="btn-add-farmer-quick" id="btn-toggle-add-farmer" data-i18n="btn_add_farmer">
+                + Add Farmer
+              </button>
+            </div>
+            <select id="calc-customer-select" class="form-select"></select>
+          </div>
+
+          <!-- Quick Add Farmer Drawer (Collapsible) -->
+          <div id="new-farmer-drawer" class="new-farmer-drawer" style="display: none;">
+            <div style="font-weight: 700; color: #ea580c; font-size: 0.95rem;" data-i18n="title_new_farmer">
+              👤 Add New Farmer to Village Book
+            </div>
+            <div class="form-row-2">
+              <input type="text" id="new-farmer-name" class="form-control" placeholder="Farmer Name (e.g. K. Selvam)">
+              <input type="text" id="new-farmer-village" class="form-control" placeholder="Village / Area (e.g. North Kadu)">
+            </div>
+            <div class="form-row-2">
+              <input type="text" id="new-farmer-phone" class="form-control" placeholder="Phone Number (Optional)">
+              <input type="number" id="new-farmer-balance" class="form-control" placeholder="Initial Old Balance (₹)" value="0">
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="btn btn-primary" id="btn-save-new-farmer" style="padding: 8px 16px; font-size: 0.88rem;" data-i18n="btn_save_farmer">
+                Save Farmer
+              </button>
+              <button type="button" class="qty-btn" id="btn-cancel-new-farmer" style="padding: 8px 14px; font-size: 0.88rem;" data-i18n="btn_cancel">
+                Cancel
+              </button>
+            </div>
+          </div>
+
+          <!-- Customer Info & Balance Card -->
+          <div id="calc-customer-info" class="farmer-info-card">
+            <div class="farmer-info-header">
+              <div>
+                <span class="farmer-name-tag" id="cust-card-name">R. Murugesan</span>
+                <span class="farmer-place-tag" id="cust-card-place"> • South Field</span>
+              </div>
+              <div id="cust-card-balance-badge" class="farmer-balance-badge">
+                Old Balance: ₹1,000
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #e2e8f0; padding-top: 8px;">
+              <button type="button" class="history-toggle-btn" id="btn-toggle-cust-history">
+                📜 View Past Work & Payment History (<span id="cust-history-count">1</span> past jobs)
+              </button>
+              <span id="cust-card-phone" style="font-size: 0.8rem; color: #64748b;">📞 98421-12345</span>
+            </div>
+            <!-- Work History List (collapsible) -->
+            <div id="calc-cust-history-drawer" class="customer-history-drawer" style="display: none;">
+              <div id="calc-history-list"></div>
+            </div>
+          </div>
+
+          <!-- Step 2: Add Work -->
+          <div class="form-group" style="border-top: 1px solid #f1f5f9; padding-top: 14px;">
+            <label class="form-label" data-i18n="calc_select_service">2. Add Tractor Work / Tool</label>
+            <select id="calc-service-select" class="form-select"></select>
+          </div>
+
+          <!-- Manual Hours/Acres Entry with Up/Down buttons -->
+          <div id="calc-hourly-group" class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label id="calc-quantity-label" class="form-label" data-i18n="calc_units_label">Hours or Acres Worked</label>
+              <span style="font-size: 0.8rem; color: #ea580c; font-weight: 600;" data-i18n="calc_hint">Type or use + / - buttons</span>
+            </div>
+            <div class="quantity-input-group">
+              <button type="button" class="qty-btn" id="qty-minus-btn" title="Decrease">− 0.5</button>
+              <input type="number" id="calc-units-input" class="form-control qty-input" value="3.0" min="0.5" max="100" step="0.5">
+              <button type="button" class="qty-btn" id="qty-plus-btn" title="Increase">+ 0.5</button>
+            </div>
+          </div>
+
+          <!-- Manual Amount Entry for Water Tanker & Goods Carrier -->
+          <div id="calc-manual-amount-group" class="manual-amount-card" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label class="form-label" style="color: #ea580c; font-weight: 700; margin: 0;" data-i18n="calc_manual_amount_label">
+                💰 Enter Rent Amount Directly (₹)
+              </label>
+              <span class="badge" style="font-size: 0.75rem;" data-i18n="calc_manual_badge">Manual Amount</span>
+            </div>
+            <input type="number" id="calc-manual-price-input" class="form-control" placeholder="Enter agreed rent amount (e.g. 1600)" value="1600" style="font-size: 1.35rem; font-weight: 800; color: #ea580c;">
+            
+            <div style="display: flex; gap: 10px; align-items: center; border-top: 1px dashed #fed7aa; padding-top: 10px; margin-top: 4px;">
+              <span id="calc-trip-label" style="font-size: 0.88rem; color: #64748b; font-weight: 600;">Number of Trips / Loads:</span>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <button type="button" class="qty-btn" id="trip-minus-btn" style="padding: 4px 10px; font-size: 0.85rem;">−</button>
+                <input type="number" id="calc-trip-input" class="form-control" value="2" min="1" max="100" style="width: 65px; text-align: center; font-weight: 700; padding: 6px;">
+                <button type="button" class="qty-btn" id="trip-plus-btn" style="padding: 4px 10px; font-size: 0.85rem;">+</button>
+              </div>
+              <span id="calc-rate-helper" style="font-size: 0.82rem; color: #64748b;">(@ ₹800 / trip)</span>
+            </div>
+          </div>
+
+          <!-- Discount -->
+          <div class="form-group">
+            <label class="form-label" data-i18n="calc_discount_label">Discount (₹) (Optional)</label>
+            <input type="number" id="calc-discount-input" class="form-control" placeholder="0" min="0" value="0">
+          </div>
+
+          <!-- Step 3: Payment Received from Customer -->
+          <div class="form-group" style="background: #f0fdf4; border: 1.5px solid #bbf7d0; border-radius: var(--radius-md); padding: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <label class="form-label" style="color: #166534; font-weight: 700; margin: 0;" data-i18n="calc_received_label">
+                3. Payment Received from Customer Now (₹)
+              </label>
+              <span class="badge" style="background: #dcfce7; color: #15803d; border-color: #86efac; font-size: 0.75rem;">Cash / UPI</span>
+            </div>
+            <input type="number" id="calc-received-input" class="form-control" placeholder="Enter amount received (e.g. 2000)" value="2000" style="font-size: 1.35rem; font-weight: 800; color: #16a34a; margin-top: 8px;">
+            <div class="quick-pay-chips">
+              <button type="button" class="quick-pay-chip" id="chip-pay-full" data-i18n="chip_pay_full">✔ Full Pay (All Cleared)</button>
+              <button type="button" class="quick-pay-chip" id="chip-pay-today" data-i18n="chip_pay_today">Today's Bill Only</button>
+              <button type="button" class="quick-pay-chip" id="chip-pay-1000">₹1,000</button>
+              <button type="button" class="quick-pay-chip" id="chip-pay-500">₹500</button>
+              <button type="button" class="quick-pay-chip" id="chip-pay-zero" data-i18n="chip_pay_zero">₹0 (Unpaid / Full Credit)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Clean, Friendly Bill & Khata Slip -->
+        <div class="calc-receipt">
+          <div>
+            <div class="receipt-header">
+              <div class="receipt-title">
+                <span data-i18n="receipt_title">Rent Bill & Farmer Slip</span>
+                <span class="badge badge-emerald" style="font-size: 0.8rem;" data-i18n="receipt_auto_calc">Auto-Calculated</span>
+              </div>
+              <div style="margin-top: 8px; display: flex; justify-content: space-between; align-items: baseline;">
+                <span id="receipt-customer-name" style="font-weight: 700; font-size: 1.1rem; color: #0f172a;">R. Murugesan</span>
+                <span id="receipt-selected-service" style="color: #ea580c; font-weight: 700; font-size: 1rem;">9 Kalapai</span>
+              </div>
+            </div>
+
+            <!-- Current Work Bill Details -->
+            <div class="receipt-row">
+              <span data-i18n="receipt_rate">Today's Work Rate</span>
+              <span id="receipt-default-rate" style="font-weight: 600;">₹1,000 / hr</span>
+            </div>
+
+            <div class="receipt-row highlight">
+              <span data-i18n="receipt_gross">Today's Work Rent</span>
+              <span id="receipt-gross-total" style="font-size: 1.05rem; font-weight: 700;">₹3,000</span>
+            </div>
+
+            <div class="receipt-row" id="receipt-discount-row">
+              <span data-i18n="receipt_adj">Discount Given</span>
+              <span id="receipt-discount" style="color: #dc2626; font-weight: 600;">- ₹0</span>
+            </div>
+
+            <div class="receipt-row highlight" style="border-top: 1px dashed #cbd5e1; padding-top: 8px; margin-top: 6px;">
+              <span data-i18n="receipt_today_net">Today's Work Bill</span>
+              <span id="receipt-net-total" style="font-size: 1.1rem; font-weight: 800; color: #0f172a;">₹3,000</span>
+            </div>
+
+            <!-- Past Khata History & Total Due -->
+            <div class="receipt-row" style="background: #fff7ed; padding: 6px 10px; border-radius: 6px; margin-top: 8px;">
+              <span data-i18n="receipt_past_balance" style="color: #c2410c; font-weight: 600;">+ Previous Balance Due</span>
+              <span id="receipt-past-balance" style="color: #c2410c; font-weight: 700;">+ ₹1,000</span>
+            </div>
+
+            <div class="receipt-row highlight" style="padding: 4px 10px;">
+              <span data-i18n="receipt_total_payable" style="font-weight: 700;">Total Amount to Pay</span>
+              <span id="receipt-total-payable" style="font-size: 1.15rem; font-weight: 800; color: #0f172a;">₹4,000</span>
+            </div>
+
+            <!-- Payment Received Entry -->
+            <div class="receipt-row" style="background: #f0fdf4; padding: 6px 10px; border-radius: 6px; margin-top: 6px;">
+              <span data-i18n="receipt_received_today" style="color: #15803d; font-weight: 600;">− Received Today</span>
+              <span id="receipt-amount-received" style="color: #16a34a; font-weight: 800; font-size: 1.1rem;">− ₹2,000</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="receipt-total-row">
+              <div>
+                <span class="total-label" data-i18n="receipt_balance">Balance to Pay</span>
+                <div style="font-size: 0.78rem; color: #64748b;" data-i18n="receipt_balance_sub">Customer remaining balance</div>
+              </div>
+              <span id="receipt-balance-due" class="total-amount">₹2,000</span>
+            </div>
+
+            <div class="receipt-action-group">
+              <button type="button" class="btn-save-khata" id="btn-save-khata-bill" data-i18n="btn_save_khata">
+                💾 Save & Update Farmer Khata
+              </button>
+              <button type="button" class="btn-whatsapp-slip" id="btn-share-whatsapp" data-i18n="btn_share_whatsapp">
+                📲 Send WhatsApp Bill Slip
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Works Without Internet (Offline Mode) -->
+  <section id="offline" class="sync-section">
+    <div class="container">
+      <div class="sync-card">
+        <div>
+          <span class="badge" data-i18n="sec_sync_badge">Field-Ready</span>
+          <h2 class="section-title" style="margin-top: 14px; margin-bottom: 16px; text-align: left;" data-i18n="sec_sync_title">Works Deep in the Fields (Offline)</h2>
+          <p class="section-desc" style="margin-bottom: 24px; text-align: left;" data-i18n="sec_sync_desc">
+            When driving in remote agricultural areas with no mobile tower, your records remain 100% safe in your phone.
+          </p>
+
+          <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <button id="btn-toggle-sync-mode" class="btn btn-outline" data-i18n="btn_toggle_network">
+              Turn Internet Off / On
+            </button>
+            <button id="btn-add-offline-job" class="btn btn-primary" data-i18n="btn_test_add_job">
+              Record ₹2,500 Cash Payment
+            </button>
+          </div>
+        </div>
+
+        <div class="sync-interactive-box">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.85rem; color: #64748b; font-weight: 700;" data-i18n="offline_memory_title">
+              Live Phone Memory Test
+            </span>
+            <span class="badge badge-emerald" data-i18n="offline_safe_badge">Safe Storage</span>
+          </div>
+
+          <div id="sync-status-bar" class="sync-status-bar">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="status-dot-pulse"></div>
+              <strong id="sync-mode-text" data-i18n="sync_online">ONLINE - Connected to Internet</strong>
+            </div>
+          </div>
+
+          <div style="font-size: 0.85rem; color: #64748b; font-weight: 600;" data-i18n="offline_log_heading">
+            Saved Work & Payment History:
+          </div>
+
+          <div id="sync-log-container" class="sync-log-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Daily Bookings & Balances Preview -->
+  <section id="dashboard-preview" class="preview-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="badge" data-i18n="sec_dash_badge">Daily Work Diary</span>
+        <h2 class="section-title" data-i18n="sec_dash_title">Today's Bookings & Balances</h2>
+        <p class="section-desc" data-i18n="sec_dash_desc">
+          See who booked your tractor today, who has balance to pay, and today's total earnings.
+        </p>
+      </div>
+
+      <div class="preview-container">
+        <div class="preview-topbar">
+          <div class="window-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+
+          <div class="preview-nav-tabs">
+            <button class="preview-tab-btn active" data-tab="bookings" data-i18n="tab_bookings">Today's Bookings</button>
+            <button class="preview-tab-btn" data-tab="ledger" data-i18n="tab_ledger">Customer Balances</button>
+            <button class="preview-tab-btn" data-tab="financials" data-i18n="tab_financials">Today's Cash & Diesel</button>
+          </div>
+
+          <div style="font-size: 0.82rem; color: #ea580c; font-weight: 700;" data-i18n="dash_top_tag">
+            Daily Diary
+          </div>
+        </div>
+
+        <div id="preview-tab-content" class="preview-body"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call To Action -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <span class="badge" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #ffedd5;" data-i18n="cta_badge">Free & Easy To Use</span>
+        <h2 style="font-size: 2.4rem;" data-i18n="cta_title">Start Managing Your Tractor the Easy Way</h2>
+        <p style="max-width: 640px; font-size: 1.1rem;" data-i18n="cta_desc">
+          No more notebook mistakes. Keep customer balances clear and save time.
+        </p>
+        <button class="btn btn-primary open-booking-modal" style="padding: 16px 36px; font-size: 1.05rem;" data-i18n="cta_btn">
+          Open Tractor App
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Booking Request Modal -->
+  <div id="booking-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1.3rem; color: #0f172a;" data-i18n="modal_book_title">🚜 Book Tractor / Tool</h3>
+        <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+      </div>
+
+      <form id="booking-inquiry-form" style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="form-group">
+          <label class="form-label" data-i18n="modal_farmer_name">Farmer Name</label>
+          <input type="text" id="book-customer-name" class="form-control" placeholder="e.g. R. Subramani" required value="S. Krishnan">
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" data-i18n="modal_phone">Phone Number</label>
+            <input type="tel" id="book-mobile" class="form-control" placeholder="9876543210" required value="9842109876">
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="modal_village">Village / Field</label>
+            <input type="text" id="book-village" class="form-control" placeholder="e.g. Vadugapalayam" required value="Vadugapalayam">
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" data-i18n="modal_tool">Tool Needed</label>
+            <select id="book-service-select" class="form-select">
+              <option value="9 Kalapai">9 Kalapai (Cultivator)</option>
+              <option value="Rotavator">Rotavator</option>
+              <option value="5 Kalapai">5 Kalapai</option>
+              <option value="Goods Carrier">Trailer (Goods Carrier)</option>
+              <option value="Water Tanker">Water Tanker</option>
+              <option value="Cutter Blade">Cutter Blade</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="modal_tractor">Choose Tractor</label>
+            <select id="book-tractor-select" class="form-select">
+              <option value="Tractor 01 (TN-38-A-1020)">Tractor 01 (TN-38-A-1020)</option>
+              <option value="Tractor 02 (TN-38-B-4412)">Tractor 02 (TN-38-B-4412)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" data-i18n="modal_datetime">Work Date & Time</label>
+          <input type="datetime-local" class="form-control" value="2026-10-29T08:00">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px;" data-i18n="modal_confirm_btn">
+          Confirm Booking
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Simple Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="margin-bottom: 14px;">
+            <div class="brand-icon">🚜</div>
+            <span class="brand-title">TRAMS</span>
+          </div>
+          <p style="color: #64748b; font-size: 0.92rem; line-height: 1.6; max-width: 300px;" data-i18n="footer_desc">
+            Tractor Rental & Farmer Khata App. Made for rural tractor owners and farmers.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="footer_tools_title">Tractor Tools</h4>
+          <ul class="footer-links">
+            <li><a href="#implements" class="footer-link">9 Kalapai & 5 Kalapai</a></li>
+            <li><a href="#implements" class="footer-link">Rotavator</a></li>
+            <li><a href="#implements" class="footer-link">Water Tanker & Trailer</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="footer_features_title">Main Features</h4>
+          <ul class="footer-links">
+            <li><a href="#offline" class="footer-link">Works Without Internet</a></li>
+            <li><a href="#calculator" class="footer-link">Instant Bill Slip</a></li>
+            <li><a href="#dashboard-preview" class="footer-link">Customer Balances</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="footer_region_title">Language & Region</h4>
+          <ul class="footer-links">
+            <li><span style="color: #ea580c; font-weight: 600;">தமிழ் & English</span></li>
+            <li><span style="color: #64748b;">Currency: ₹ INR</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div data-i18n="footer_copy">
+          &copy; 2026 TRAMS — Easy Tractor Rental App
+        </div>
+        <div data-i18n="footer_tagline">
+          Simple • Fast • Works Offline
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js?v=2.4"></script>
+</body>
+</html>
